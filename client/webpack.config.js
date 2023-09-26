@@ -3,8 +3,6 @@ const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
 const { InjectManifest } = require('workbox-webpack-plugin');
 
-// TODO: Add and configure workbox plugins for a service worker and manifest file.
-
 module.exports = () => {
   return {
     mode: 'development',
@@ -26,11 +24,13 @@ module.exports = () => {
         swDest: 'src-sw.js',
       }),
       new WebpackPwaManifest({
+        fingerprints: false,
+        inject: true,
         name: 'text-editor',
         short_name: 'Text',
-        description: '',
-        start_url: './',
-        publicpath: './',
+        description: 'JATE or Just Another Text Editor helps keep track of your notes and thoughts.',
+        start_url: '/',
+        publicpath: '/',
         background_color: "#7eb4e2",
         theme_color: "#7eb4e2",
         icons: [
@@ -46,6 +46,14 @@ module.exports = () => {
     module: {
       rules: [
         {
+        //   test: /\.(png|jpe?g|gif)$/i,
+        //   use: [
+        //     {
+        //       loader: 'file-loader',
+        //     },
+        //   ],
+        // },
+        // {
           test: /\.css$/i,
           use: ['style-loader', 'css-loader'],  
         },
